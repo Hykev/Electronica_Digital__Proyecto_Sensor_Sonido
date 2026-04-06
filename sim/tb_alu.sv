@@ -10,7 +10,7 @@ module tb_alu;
     logic greater;
     logic equal;
 
-    alu dut (
+    alu DUT (
         .A(A),
         .B(B),
         .opcode(opcode),
@@ -21,41 +21,43 @@ module tb_alu;
 
     initial begin
 
-        $display("Starting ALU testbench");
+        $display("==== INICIO TEST ALU ====");
 
-        // Test 1: Addition
-        A = 16'd10;
-        B = 16'd5;
+        // Test 1: Suma
+        A = 10;
+        B = 5;
         opcode = 2'b00;
         #10;
 
-        // Test 2: Larger addition
-        A = 16'd100;
-        B = 16'd50;
+        $display("SUMA: %d + %d = %d", A, B, result);
+
+        // Test 2: Suma mayor
+        A = 100;
+        B = 50;
         opcode = 2'b00;
         #10;
 
-        // Test 3: Comparison A > B
-        A = 16'd200;
-        B = 16'd100;
+        $display("SUMA: %d + %d = %d", A, B, result);
+
+        // Test 3: Comparación A > B
+        A = 20;
+        B = 10;
         opcode = 2'b01;
         #10;
 
-        // Test 4: Comparison A == B
-        A = 16'd300;
-        B = 16'd300;
+        $display("COMPARE: A=%d B=%d | greater=%b equal=%b", A, B, greater, equal);
+
+        // Test 4: Comparación A == B
+        A = 30;
+        B = 30;
         opcode = 2'b01;
         #10;
 
-        // Test 5: Comparison A < B
-        A = 16'd50;
-        B = 16'd100;
-        opcode = 2'b01;
-        #10;
+        $display("COMPARE: A=%d B=%d | greater=%b equal=%b", A, B, greater, equal);
 
-        $display("ALU testbench finished");
+        $display("==== FIN TEST ALU ====");
 
-        $stop;
+        $finish;
 
     end
 

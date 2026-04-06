@@ -17,7 +17,7 @@ module tb_register_bank;
     logic [15:0] accumulator;
     logic [4:0]  sample_count;
 
-    register_bank dut (
+    register_bank DUT (
         .clk(clk),
         .reset(reset),
         .sensor_data_in(sensor_data_in),
@@ -44,25 +44,35 @@ module tb_register_bank;
 
         #10 reset = 0;
 
-        // Write sensor value
-        sensor_data_in = 12'd250;
+        $display("==== INICIO TEST REGISTER BANK ====");
+
+        // escribir sensor
+        sensor_data_in = 350;
         write_sensor = 1;
         #10;
         write_sensor = 0;
 
-        // Write accumulator value
-        accumulator_in = 16'd500;
+        $display("Sensor Register = %d", sensor_data);
+
+        // escribir acumulador
+        accumulator_in = 1200;
         write_accumulator = 1;
         #10;
         write_accumulator = 0;
 
-        // Write sample counter
-        sample_count_in = 5'd4;
+        $display("Accumulator Register = %d", accumulator);
+
+        // escribir contador
+        sample_count_in = 8;
         write_count = 1;
         #10;
         write_count = 0;
 
-        $stop;
+        $display("Sample Count Register = %d", sample_count);
+
+        $display("==== FIN TEST REGISTER BANK ====");
+
+        $finish;
 
     end
 

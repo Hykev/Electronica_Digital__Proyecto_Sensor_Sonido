@@ -10,7 +10,7 @@ module tb_accumulator;
     logic [11:0] sample_in;
     logic [15:0] sum_out;
 
-    accumulator dut (
+    accumulator DUT (
         .clk(clk),
         .reset(reset),
         .enable(enable),
@@ -19,7 +19,7 @@ module tb_accumulator;
         .sum_out(sum_out)
     );
 
-    // clock generation
+    // Clock
     always #5 clk = ~clk;
 
     initial begin
@@ -28,35 +28,39 @@ module tb_accumulator;
         reset = 1;
         enable = 0;
         clear = 0;
-        sample_in = 0;
 
         #10 reset = 0;
 
-        // First sample
+        $display("==== INICIO TEST ACCUMULATOR ====");
+
         enable = 1;
-        sample_in = 12'd100;
+
+        sample_in = 100;
         #10;
+        $display("Sample: %d | Accumulator: %d", sample_in, sum_out);
 
-        // Second sample
-        sample_in = 12'd120;
+        sample_in = 120;
         #10;
+        $display("Sample: %d | Accumulator: %d", sample_in, sum_out);
 
-        // Third sample
-        sample_in = 12'd90;
+        sample_in = 80;
         #10;
+        $display("Sample: %d | Accumulator: %d", sample_in, sum_out);
 
-        // Fourth sample
-        sample_in = 12'd110;
+        sample_in = 200;
         #10;
+        $display("Sample: %d | Accumulator: %d", sample_in, sum_out);
 
-        enable = 0;
-
-        // Clear accumulator
+        // limpiar acumulador
         clear = 1;
         #10;
         clear = 0;
 
-        $stop;
+        $display("Accumulator cleared: %d", sum_out);
+
+        $display("==== FIN TEST ACCUMULATOR ====");
+
+        $finish;
 
     end
 
